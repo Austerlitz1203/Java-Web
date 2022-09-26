@@ -14,6 +14,13 @@ public class people {
         public void introducemyself()//"test"类的方法
         {
             System.out.println("My name is "+this.name+",I am "+this.age+" years old");
+            test();
         }
+
+        public void test()
+        {
+            System.out.println("This man is " + this.name);
+        }
+
 }
 
