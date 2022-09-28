@@ -1,9 +1,9 @@
 package study9_26;
 
 public class MathTools {
-     static double PI=3.1415926;
-     static double area(int n)
+     public final static double PI=3.1415926;
+     static final double area(double n)
      {
-         return MathTools.PI*n*n;
+         return Math.pow(n,2)*MathTools.PI;
      }
 }

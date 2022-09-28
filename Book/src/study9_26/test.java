@@ -23,5 +23,10 @@ public class test {
         ScientificBook c=new ScientificBook("dwa","dwadd",45,"2318742","dsadsa");
         System.out.println(a instanceof ScientificBook);//instanceof是指a变量是不是后面的new出来的
         System.out.println(c.getClass());//getclass得到类名
+
+        System.out.println(MathTools.area(4));
+        //MathTools.PI=10;//加了final之后，想要修改就会报错
+        System.out.println(MathTools.PI);//加了final之后，不仅可以直接用PI，而且能保证它不会被修改
+
     }
 }
