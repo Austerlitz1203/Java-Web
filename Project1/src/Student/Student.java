@@ -1,15 +1,13 @@
 package Student;
 
 public class Student {
-    String num;
-    String name;
-    int MatScore;
-    int ChiScore;
-    int EngScore;
-    int SumScore;
-    int AveScore;
-
-    //构造函数
+    private String num;
+    private String name;
+    private int MatScore;
+    private int ChiScore;
+    private int EngScore;
+    private int SumScore;
+    private double AveScore;
 
 
     public void getNum(String num){
@@ -29,10 +27,31 @@ public class Student {
         this.EngScore=Eng;
     }
     public void getSum(int Sum){
-        this.SumScore=Sum;
+        this.SumScore+=Sum;
     }
-    public Void getAve(int Ave){
-        this .AveScore=Ave;
+    public void getAve(double Ave){
+        this .AveScore+=Ave;
     }
 
+    public String putNum(){
+        return this.num;
+    }
+    public String putName(){
+        return this.name;
+    }
+    public int putMat(){
+        return this.MatScore;
+    }
+    public int putChi(){
+        return this.ChiScore;
+    }
+    public int putEng(){
+        return this.EngScore;
+    }
+    public int putSum(){
+        return this.SumScore;
+    }
+    public double putAve(){
+        return this.AveScore;
+    }
 }
