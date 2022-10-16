@@ -29,8 +29,8 @@ public class StudentManager {
         //List<Student> studentList2=sortByTotal();
         //printAll(studentList2);
 
+        //测试写入本地文件
         saveAs();
-
     }
 
     //打印所有信息
@@ -90,30 +90,34 @@ public class StudentManager {
         return temp;
     }
 
+
     public static void saveAs() {
-
-        for (Student stu : studentList) {
+        String file="C:\\Users\\Austerlitz\\Desktop\\studentsCopy.txt";
+        BufferedWriter out = null;
+        for (Student stu:studentList)
+        {
             try {
-                Student content=stu;
-                File file = new File("C:\\Users\\Austerlitz\\Desktop\\studentsCopy.txt");
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(),true);
-                BufferedWriter bw = new BufferedWriter(fileWriter);
-                bw.write(stu.putNum()+',');
-                bw.write(stu.putName()+',');
-                bw.write(stu.putChi()+',');
-                //bw.write(stu.putEng()+',');
-                //bw.write(stu.putSum()+',');
-                bw.write("\r\n");
-                //bw.write(stu.putAve());
+                out = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(file, true)));
+                out.write(stu.putNum()+",");
+                out.write(stu.putName()+",");
+                out.write(stu.putChi()+",");
+                out.write(stu.putMat()+",");
+                out.write(stu.putEng()+",");
+                out.write(stu.putSum()+",");
+                String s = String.format("%.2f", stu.putAve());
+                out.write(s+"\r\n");
 
-                bw.close();
-                System.out.println("finish");
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
     }
