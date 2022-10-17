@@ -15,12 +15,9 @@ public class GetStudent {
     public static List<Student> getStudent() throws IOException {
         //读取姓名学号
         List<Student> studentList=getStudents1("C:\\Users\\Austerlitz\\Desktop\\students.txt");
-        //读取数学成绩
-        getStudents2(studentList);
-        //读取语文成绩
-        getStudents3(studentList);
-        //读取外语成绩
-        getStudents4(studentList);
+
+        studentList=studentGrades();
+        average((studentList));
         return studentList;
     }
 
@@ -34,7 +31,7 @@ public class GetStudent {
         while((s=buf.readLine())!=null){
             Student student=new Student();
             int index=s.indexOf("\t");
-            student.getNum(s.substring(0,index));
+            student.getNum(s.substring(0,index+1));
             student.getName(s.substring(index+1));
             students.add(student);
         }
@@ -43,176 +40,85 @@ public class GetStudent {
         inr.close();
         return students;
     }
-
-    //读取数学成绩，传对象
-    public static void getStudents2(List<Student> studentList){
-        //下载文件的URL
-        String fileUrl = "http://139.186.26.196/javaweb/data/math.txt";
-        //通过下载文件的URL获取文件内容
-        BufferedReader bf = null;
-        String line;//文件每行内容
-        try {
-            URL url  = new URL(fileUrl);
-            //建立URL链接
-            URLConnection conn = url.openConnection();
-            //设置模拟请求头
-            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-            //开始链接
-            conn.connect();
-            //因为要用到URLConnection子类的方法，所以强转成子类
-            HttpURLConnection urlConn = (HttpURLConnection) conn;
-            //响应200
-            if(urlConn.getResponseCode()==HttpURLConnection.HTTP_OK)
-            {
-                //字节或字符读取的方式太慢了，用BufferedReader封装按行读取
-                bf =new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-
-                while((line=bf.readLine())!=null)
-                {
-                    String[] temp=line.split("\t");
-                    //学好对应了则把成绩记录
-                    for (Student stu:studentList){
-                        if (temp[0].compareTo(stu.putNum()) == 0){
-                            stu.getMath(Integer.valueOf(temp[1]));
-                            stu.getSum(stu.putMat());
-                            stu.getAve(stu.putMat()/3.0);
-                        }
-                    }
-                }
-                //通过已获取的文件内容   FTP上传至服务器新建文件中
-            }else{
-                System.out.println("无法链接到URL!");
-            }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally{
-            try
-            {
-                if(bf!=null){
-                    bf.close();
-                }
-            }catch(IOException e){
-                e.printStackTrace();
-            }
+    public static void average(List<Student> students){
+        for(Student stu:students)
+        {
+            stu.getAve(stu.putEng()/3.0+stu.putMat()/3.0+stu.putChi()/3.0);
         }
     }
 
-
-
-    //读取语文成绩
-    public static void getStudents3(List<Student> studentList){
-        //下载文件的URL
-        String fileUrl = "http://139.186.26.196/javaweb/data/chinese.txt";
-        //通过下载文件的URL获取文件内容
-        BufferedReader bf = null;
-        String line;//文件每行内容
-        try {
-            URL url  = new URL(fileUrl);
-            //建立URL链接
-            URLConnection conn = url.openConnection();
-            //设置模拟请求头
-            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-            //开始链接
-            conn.connect();
-            //因为要用到URLConnection子类的方法，所以强转成子类
-            HttpURLConnection urlConn = (HttpURLConnection) conn;
-            //响应200
-            if(urlConn.getResponseCode()==HttpURLConnection.HTTP_OK)
-            {
-                //字节或字符读取的方式太慢了，用BufferedReader封装按行读取
-                bf =new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-
-                while((line=bf.readLine())!=null)
-                {
-                    String[] temp=line.split("\t");
-                    //学好对应了则把成绩记录
-                    for (Student stu:studentList){
-                        if (temp[0].compareTo(stu.putNum()) == 0){
-                            stu.getChi(Integer.valueOf(temp[1]));
-                            stu.getSum(stu.putChi());
-                            stu.getAve(stu.putChi()/3.0);
-                        }
-                    }
+    public static ArrayList<Student> studentGrades() throws IOException {
+        String studentMath = Urlfind.openFile("http://139.186.26.196/javaweb/data/math.txt");
+        String studentChinese = Urlfind.openFile("http://139.186.26.196/javaweb/data/english.txt");
+        String studentEnglish = Urlfind.openFile("http://139.186.26.196/javaweb/data/english.txt");
+        ArrayList<Student> students = StudentManager.studentArrayList();
+        ArrayList<Student> studentsMain1 = new ArrayList<>();
+        ArrayList<Student> studentsMain2 = new ArrayList<>();
+        ArrayList<Student> studentsMainFinnal = new ArrayList<>();
+        ArrayList<Student> studentsMathGrades = new ArrayList<>();
+        ArrayList<Student> studentsChineseGrades = new ArrayList<>();
+        ArrayList<Student> studentsEnglishGrades = new ArrayList<>();
+        String[] stuM = studentMath.split("\n");
+        String[] stuC = studentChinese.split("\n");
+        String[] stuE = studentEnglish.split("\n");
+        for (String s : stuM) {
+            int index = s.indexOf("\t");
+            Student stu = new Student();
+            stu.getNum(s.substring(0, index + 1));
+            stu.getMath(Integer.valueOf(s.substring(index + 1)));
+            studentsMathGrades.add(stu);
+        }
+        for (Student temp1 : students) {
+            for (Student temp2 : studentsMathGrades) {
+                if (temp2.putNum().equals(temp1.putNum())) {
+                    temp1.getMath(temp2.putMat());
+                    studentsMain1.add(temp1);
                 }
-                //通过已获取的文件内容   FTP上传至服务器新建文件中
-            }else{
-                System.out.println("无法链接到URL!");
-            }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally{
-            try
-            {
-                if(bf!=null){
-                    bf.close();
-                }
-            }catch(IOException e){
-                e.printStackTrace();
             }
         }
+        // -------------
+        for (String s : stuC) {
+            int index = s.indexOf("\t");
+            Student stu = new Student();
+            stu.getNum(s.substring(0, index + 1));
+            stu.getChi(Integer.valueOf(s.substring(index + 1)));
+            studentsChineseGrades.add(stu);
+        }
+        for (Student temp1 : studentsMain1) {
+            for (Student temp2 : studentsChineseGrades) {
+                if (temp2.putNum().equals(temp1.putNum())) {
+                    temp1.getChi(temp2.putChi());
+                    studentsMain2.add(temp1);
+                }
+            }
+        }
+        //--------------
+        for (String s : stuE) {
+            int index = s.indexOf("\t");
+            Student stu = new Student();
+            stu.getNum(s.substring(0, index + 1));
+            stu.getEng(Integer.valueOf(s.substring(index + 1)));
+            studentsEnglishGrades.add(stu);
+        }
+        for (Student temp1 : studentsMain2) {
+            for (Student temp2 : studentsEnglishGrades) {
+                if (temp2.putNum().equals(temp1.putNum())) {
+                    temp1.getEng(temp2.putEng());
+                    Integer avager = Avager(temp1);
+                    temp1.getSum(avager * 3);
+                    studentsMainFinnal.add(temp1);
+                }
+            }
+        }
+        //--------------
+        return studentsMainFinnal;
+
     }
 
 
-    //读取英语成绩
-    public static void getStudents4(List<Student> studentList){
-        //下载文件的URL
-        String fileUrl = "http://139.186.26.196/javaweb/data/english.txt";
-        //通过下载文件的URL获取文件内容
-        BufferedReader bf = null;
-        String line;//文件每行内容
-        try {
-            URL url  = new URL(fileUrl);
-            //建立URL链接
-            URLConnection conn = url.openConnection();
-            //设置模拟请求头
-            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-            //开始链接
-            conn.connect();
-            //因为要用到URLConnection子类的方法，所以强转成子类
-            HttpURLConnection urlConn = (HttpURLConnection) conn;
-            //响应200
-            if(urlConn.getResponseCode()==HttpURLConnection.HTTP_OK)
-            {
-                //字节或字符读取的方式太慢了，用BufferedReader封装按行读取
-                bf =new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-
-                while((line=bf.readLine())!=null)
-                {
-                    String[] temp=line.split("\t");
-                    //学好对应了则把成绩记录
-                    for (Student stu:studentList){
-                        if (temp[0].compareTo(stu.putNum()) == 0){
-                            stu.getEng(Integer.valueOf(temp[1]));
-                            stu.getSum(stu.putEng());
-                            stu.getAve(stu.putEng()/3.0);
-                        }
-                    }
-                }
-                //通过已获取的文件内容   FTP上传至服务器新建文件中
-            }else{
-                System.out.println("无法链接到URL!");
-            }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } finally{
-            try
-            {
-                if(bf!=null){
-                    bf.close();
-                }
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }
+    public static Integer Avager(Student s) {
+        return (Integer.valueOf(s.putChi()) + Integer.valueOf(s.putMat()) + Integer.valueOf(s.putEng())) / 3;
     }
+
 
 }

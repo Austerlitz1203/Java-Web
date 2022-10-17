@@ -14,7 +14,7 @@ public class StudentManager {
         studentList = GetStudent.getStudent();
 
         //测试打印全部信息
-        //printAll(studentList);
+        printAll(studentList);
 
         //测试根据某一科分数区间找信息
         //findByScore("Math",80,90);
@@ -35,10 +35,9 @@ public class StudentManager {
 
     //打印所有信息
     public static void printAll(List<Student> studentList) {
-        System.out.println("学号\t\t\t\t姓名\t\t语文成绩，数学成绩，外语成绩，总分，平均分");
         for (Student stu : studentList) {
-            String s = String.format("%.2f", stu.putAve());
-            System.out.println(stu.putNum() + "," + stu.putName() + "," + stu.putChi() + "," + stu.putMat() + ", " + stu.putEng() + "," + stu.putSum() + "," + s);
+            String s = String.format("平均成绩：%.2f", stu.putAve());
+            System.out.println("学号："+stu.putNum() + "," + "姓名："+stu.putName() + "," +"语文成绩："+ stu.putChi() + "," + "数学成绩："+stu.putMat() + ", " + "英语成绩："+stu.putEng() + "," + "平均分"+stu.putSum() + "," + s);
 
         }
     }
@@ -120,6 +119,43 @@ public class StudentManager {
 
         }
 
+    }
+
+    public static ArrayList<Student> studentArrayList() {
+        InputStreamReader isr = null;
+        try {
+            isr = new InputStreamReader(new FileInputStream("C:\\Users\\Austerlitz\\Desktop\\students.txt"), "utf8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedReader br = new BufferedReader(isr);
+        ArrayList<Student> ar = new ArrayList<Student>();
+        String line;
+        while (true) {
+            try {
+                if (!((line = br.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String[] strArray1 = line.split("\t", 2);
+            int index = line.indexOf("\t");
+            Student s = new Student();
+            s.getNum(line.substring(0, index + 1));
+            s.getName(line.substring(index + 1));
+            ar.add(s);
+        }
+        try {
+            br.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println();
+        //for (Student s : ar) {
+        // System.out.println(String.format("姓名:%s学号:%s", s.getId(), s.getName()));
+        //}
+        return ar;
     }
 
 }
