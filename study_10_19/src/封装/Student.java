@@ -13,6 +13,11 @@ public class Student {
     //构造方法作用：实例化一个对象
     //构造方法不止一个，可以多个
     //ctr+alt+s里的construct就是自动生成构造方法
+
+    public Student(){
+        this("zhangsan",20);
+        System.out.println("Hello");
+    }
     public Student(String Name,int Age){
         this.name=Name;
         this.age=Age;

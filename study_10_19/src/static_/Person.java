@@ -13,11 +13,34 @@ public class Person {
     int age;
 
     //静态成员变量    访问：类名.静态成员变量名    这个变量是在方法区，是属于类的，不是属于成员的
-    static int height;
+    static int height=0;
+
+    //代码块实行顺序：
+    //1、静态代码块        如果都是静态，那么按自上而下顺序，谁先被定义，先执行谁
+    //2、实例代码块
+    //3、方法
+
+    //静态代码块
+    static {
+        height=99;
+        System.out.println("静态代码块");
+    }
+
+    //实例代码块
+    {
+        System.out.println("实例代码块");
+    }
+    public Person(){
+        System.out.println("INIT");
+    }
+
 
     //方法
     //实例方法
     public void name(){
+        {
+            //本地代码块，实例中的
+        }
         int a=10;//这个是局部变量
         System.out.println("name()");
     }
@@ -36,4 +59,14 @@ public class Person {
         //age();//也不可以调用非静态方法，只可以调用静态方法
         System.out.println("height()");
     }
+
+    //重载：
+    //1、方法名相同
+    //2、参数不同
+    //3、返回值不做要求，可同可不同
+    //构造函数可以重载
+    public static  void height(int heiht){
+
+    }
+
 }
