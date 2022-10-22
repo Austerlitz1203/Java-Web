@@ -1,9 +1,10 @@
-package 向上转型;
+package 向下转型;
 
-public class Cat extends Animal{
+public class Cat extends Animal {
 
     public Cat(String name){
         super(name);
+
     }
 
     public void sleep(){

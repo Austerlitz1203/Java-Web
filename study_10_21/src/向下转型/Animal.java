@@ -1,10 +1,9 @@
-package 向上转型;
+package 向下转型;
 
 public class Animal {
     String name;
     public Animal(String name){
         this.name=name;
-        eat();
     }
 
     public void eat(){
