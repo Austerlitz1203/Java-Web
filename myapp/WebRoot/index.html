@@ -13,12 +13,28 @@
 
         <br>
 
-        <form action="./color" >
+        <form action="./color" method="post">
             Red :   <input type="text" value="255" name="red"> <br>
             Green : <input type="text" value="230" name="green"> <br>
             Blue :  <input type="text" value="230" name="blue"> <br>
-            Total : <input type="text" value="10"  name="total"> <br>
-            Step :  <input type="text" value="5"   name="step"> <br>
+            Total :
+            <select name="total">
+                <option value="5">Five</option>
+                <option value="8">Eight</option>
+                <option value="10">Ten</option>
+                <option value="12">Twelve</option>
+            </select>
+
+            <br>
+            <br>
+            <h3>Please choose step!!!</h3>
+            <br>
+            5 :   <input type="radio" value="5"  name="step">
+            10 :  <input type="radio" value="10" name="step">
+            15 :  <input type="radio" value="15" name="step">
+            <br>
+            <br>
+            <textarea rows="5" cols="100" name="describe"></textarea>
             <br>
 
             <input type="submit" value="生成颜色列表">
