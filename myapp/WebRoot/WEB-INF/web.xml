@@ -12,6 +12,7 @@
      Welcome to Tomcat
   </description>
 
+
   <servlet>
       <servlet-name>FirstServlet</servlet-name>
       <servlet-class>cn.edu.swu.FirstServlet</servlet-class>
@@ -20,4 +21,5 @@
       <servlet-name>FirstServlet</servlet-name>
       <url-pattern>/first</url-pattern>
   </servlet-mapping>
+
 </web-app>
