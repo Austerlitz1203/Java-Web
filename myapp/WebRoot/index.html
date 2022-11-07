@@ -5,6 +5,28 @@
     <title>My Java App</title>
 </head>
 <body>
-    <h1>Center</h1>
+    <center>
+        <h1>Center</h1>
+        <a href="./color?red=255&green=230&blue=200&total=15&step=5" target="_blank"> color pallet 1 </a><br>
+        <a href="./color?red=255&green=150&blue=100&total=15&step=5" target="_blank"> color pallet 2 </a><br>
+        <a href="./color?red=255&green=60&blue=50&total=15&step=5" target="_blank"> color pallet 3 </a><br>
+
+        <br>
+
+        <form action="./color" >
+            Red :   <input type="text" value="255" name="red"> <br>
+            Green : <input type="text" value="230" name="green"> <br>
+            Blue :  <input type="text" value="230" name="blue"> <br>
+            Total : <input type="text" value="10"  name="total"> <br>
+            Step :  <input type="text" value="5"   name="step"> <br>
+            <br>
+
+            <input type="submit" value="生成颜色列表">
+        </form>
+    </center>>
+
+
+
+
 </body>
 </html>
