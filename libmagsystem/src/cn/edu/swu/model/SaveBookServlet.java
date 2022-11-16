@@ -27,7 +27,7 @@ public class SaveBookServlet  extends HttpServlet {
 
         String message = null;
         try {
-            DBUtils.saveBook(book);
+            BookRepo.getInstance().saveBook(book);
             message = "提交信息保存成功！";
         } catch (SQLException e) {
             e.printStackTrace();

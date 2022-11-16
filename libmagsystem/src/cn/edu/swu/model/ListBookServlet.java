@@ -14,7 +14,7 @@ import java.util.List;
 public class ListBookServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            List<Book> books = DBUtils.getAllBook();
+            List<Book> books =  BookRepo.getInstance().getAll();
             response.setContentType("text/html; charset=UTF-8");
             try(Writer writer = response.getWriter()) {
                 writer.write("<center style=\"margin-top:5em\">\n");
