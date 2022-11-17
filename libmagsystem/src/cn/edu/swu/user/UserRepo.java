@@ -26,6 +26,18 @@ public class UserRepo {
         DBEngine.getInstance().execute(sql);
     }
 
+    public User auth(String user, String password) throws SQLException {
+        String template = "SELECT * FROM `user` WHERE `user` = \"%s\" AND `password` = MD5(\"%s\")";
+        List<User> users = DBEngine.getInstance().query(
+                String.format(template, user, password), new RecordVisitor<User>() {
+                    @Override
+                    public User visit(ResultSet rs) throws SQLException {
+                        return UserRepo.getUserByResultSet(rs);
+                    }
+                });
+        return users.size() == 0 ? null : users.get(0);
+    }
+
     public void delete(User user) throws SQLException {
         String template = "DELETE FROM `user` WHERE `id` = \"%s\"";
         DBEngine.getInstance().execute(String.format(template, user.getId()));
@@ -36,14 +48,18 @@ public class UserRepo {
         return DBEngine.getInstance().query(sql, new RecordVisitor<User>() {
             @Override
             public User visit(ResultSet rs) throws SQLException {
-                User user = new User();
-                user.setId(rs.getString("id"));
-                user.setName(rs.getString("name"));
-                user.setUser(rs.getString("user"));
-                user.setPassword(rs.getString("password"));
-                return user;
+                return UserRepo.getUserByResultSet(rs);
             }
         });
+    }
+
+    private static User getUserByResultSet(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getString("id"));
+        user.setName(rs.getString("name"));
+        user.setUser(rs.getString("user"));
+        user.setPassword(rs.getString("password"));
+        return user;
     }
 
 }
