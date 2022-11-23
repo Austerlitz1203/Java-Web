@@ -49,7 +49,7 @@ public class Index extends HttpServlet {
                 "                    <div style=\"float:left;padding-right:3em\"><a href=\"./listBook\">查看图书</a></div>\n" +
                 "                </div>\n" +
                 "                <div>\n" +
-                "                    <div style=\"float:left;padding-right:3em\"><a href=\"./login.html\">登录后台</a></div>\n" +
+                "                    <div style=\"float:left;padding-right:3em\"><a href=\"./login\">登录后台</a></div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "            <br><hr width='80%'>\n" +
@@ -65,3 +65,7 @@ public class Index extends HttpServlet {
     }
 
 }
+
+//登陆后台那里 改成了进入login，原本是进入login.html ，因为，首先进入login，如果有账号密码，那么直接登陆.
+//否则就是没有输入账号密码，两种情况，要么没有，要么已经登陆：
+// 在session里面看，如果session为空，没登陆过，去登录界面。不为空登陆过，直接到admin
