@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
         //如果没有数据，那么跳到login.html页面
         //如果有数据，那么直接跳到admin页面
         if (userName != null && password != null) {
+            //为什么要有这个判断，因为点了登陆之后，他是跳到login的，即这个loginservlet，所以要在这里有
             this.doLogin(request, response);
         } else {
             HttpSession session = request.getSession();
@@ -41,13 +42,23 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    public void doLogin(HttpServletRequest request, HttpServletResponse response) {
+    public void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String userName = request.getParameter("user");
         String password = request.getParameter("password");
+
+        String code = request.getParameter("code");
+
+        String verifyCode = (String) request.getSession(true).getAttribute(ValidateCodeServlet.LOGIN_VERIFY_CODE);
+        if (code == null || !code.equalsIgnoreCase(verifyCode)) {
+            System.out.println("验证码错误");
+            response.sendRedirect("./login.html");
+            return;
+        }
+
         try {
             User user = UserRepo.getInstance().auth(userName, password);
             if (user != null) {
-                HttpSession session=request.getSession(true);
+                HttpSession session=request.getSession();
                 session.setAttribute(LOGIN_TOKEN,Boolean.TRUE);
                 response.sendRedirect("./admin.html");
             } else {

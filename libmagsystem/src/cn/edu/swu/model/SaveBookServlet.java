@@ -38,7 +38,7 @@ public class SaveBookServlet  extends HttpServlet {
         try(Writer writer = response.getWriter()) {
             String html = "<center style=‘margin-top:5em’><h1>%s</h1><br><br>" +
                     "<a href='./submit-book.html'>再 次 录 入</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                    "<a href='./index.html'>返 回 首 页</a>" +
+                    "<a href='./admin.html'>返 回 首 页</a>" +
                     "</center>";
             writer.write(String.format(html, message));
         }
