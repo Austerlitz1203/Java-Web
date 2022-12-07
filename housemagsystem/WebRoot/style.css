@@ -7,6 +7,8 @@
 
 .book-div {
     float: left;
+    width: 200px;
+    margin-top: 2em;
 }
 
 .book-name {
@@ -19,4 +21,7 @@
 
 .book-price {
     color: #FF0000;
+}
+.book-pic{
+    width: 200px;
 }

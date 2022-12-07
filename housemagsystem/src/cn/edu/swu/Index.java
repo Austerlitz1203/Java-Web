@@ -2,10 +2,10 @@ package cn.edu.swu;
 
 import cn.edu.swu.hosuse.House;
 import cn.edu.swu.hosuse.HouseRepo;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -27,7 +27,7 @@ public class Index extends HttpServlet {
         sb.append("<br><div class='book-group'>\n");
         for (House house : houses) {
             sb.append("<div class='book-div'>");
-            sb.append("<div class='book-pic'><img src=\"./images/b11.png\"/></div>");
+            sb.append("<div class='book-pic'><img src=\"./upload/" + house.getPicture() + "\"/></div>");
             sb.append("<div class='book-name'>" + house.getName() + "</div>");
             sb.append("<div class='book-author'>拥有者: " + house.getOwner() + "</div>");
             sb.append("<div class='book-price'>价格：" + house.getPrice()+ "万</div>");

@@ -28,18 +28,18 @@ public class HouseRepo {
 
     private void insertHouse(House house) throws SQLException {
         String template =
-                "INSERT INTO `house`(`name`, `owner`, `ownerPhone`,`price`, `describe`) " +
-                        "VALUES (\"%s\", \"%s\", \"%s\",%s, \"%s\")";
-        String sql = String.format(template, house.getName(), house.getOwner(), house.getOwnerPhone(),house.getPrice(), house.getDescribe());
+                "INSERT INTO `house`(`name`, `owner`, `ownerPhone`,`price`, `describe`, `picture`) " +
+                        "VALUES (\"%s\", \"%s\", \"%s\",%s, \"%s\", \"%s\")";
+        String sql = String.format(template, house.getName(), house.getOwner(), house.getOwnerPhone(),house.getPrice(), house.getDescribe(),house.getPicture());
         DBEngine.getInstance().execute(sql);
     }
 
     private void updateHouse(House house) throws SQLException {
         String template =
-                "UPDATE `house` SET `name`=\"%s\", `owner`=\"%s\", `ownerPhone`=\"%s\",`price`=%s, `describe`=\"%s\" " +
+                "UPDATE `house` SET `name`=\"%s\", `owner`=\"%s\", `ownerPhone`=\"%s\",`price`=%s, `describe`=\"%s\" , `picture`=\"%s\"" +
                         "WHERE `id`=%s";
         String sql = String.format(template, house.getName(),
-                house.getOwner(), house.getPrice(), house.getDescribe(), house.getId());
+                house.getOwner(), house.getPrice(), house.getDescribe(), house.getPicture(),house.getId());
         DBEngine.getInstance().execute(sql);
     }
 
@@ -56,7 +56,7 @@ public class HouseRepo {
     }
 
     public List<House> getAll() throws SQLException {
-        String sql = "SELECT `id`, `name`, `owner`, `ownerPhone`,`price`, `describe` FROM `house`";
+        String sql = "SELECT `id`, `name`, `owner`, `ownerPhone`,`price`, `describe`, `picture` FROM `house`";
         return DBEngine.getInstance().query(sql, new RecordVisitor<House>() {
             @Override
             public House visit(ResultSet rs) throws SQLException {
@@ -86,6 +86,7 @@ public class HouseRepo {
         house.setOwnerPhone(rs.getString("ownerPhone"));
         house.setDescribe(rs.getString("describe"));
         house.setPrice(rs.getFloat("price"));
+        house.setPicture(rs.getString("picture"));
         return house;
     }
 

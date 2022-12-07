@@ -1,9 +1,9 @@
 package cn.edu.swu.hosuse;
 
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -34,6 +34,7 @@ public class ListHouseServlet extends HttpServlet{
                     writer.write(String.format("<td width='100px'>%s</td>", house.getOwnerPhone()));
                     writer.write(String.format("<td width='100px'>%s 万</td>", house.getPrice()));
                     writer.write(String.format("<td>%s</td>", house.getDescribe()));
+                    writer.write(String.format("<td><img src='./upload/%s' style='width:50px'/></td>", house.getPicture()));
                     writer.write(String.format("<td><a href='./deleteHouse?id=%s'>" +
                             "<img src='./images/trash.png' width='20px'></a></td>", house.getId()));
                     writer.write(String.format("<td><a href='./updateHouse?id=%s'>" +

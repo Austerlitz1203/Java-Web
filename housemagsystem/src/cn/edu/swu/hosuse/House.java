@@ -9,6 +9,16 @@ public class House {
     private float price;
     private String describe;
 
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public long getId() {
         return id;
     }

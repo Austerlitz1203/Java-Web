@@ -1,9 +1,9 @@
 package cn.edu.swu.hosuse;
 
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -14,7 +14,7 @@ public class UpdateHouseServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String id = request.getParameter("id");
-        House house = null;
+        House house = new House();
         try {
             house = HouseRepo.getInstance().getById(id);
         } catch (SQLException e) {
@@ -38,6 +38,7 @@ public class UpdateHouseServlet extends HttpServlet {
                 "        电 话： <input type=\"text\" name=\"ownerPhone\" value=\"" + house.getOwnerPhone() + "\"><br><br>\n" +
                 "        价 格： <input type=\"text\" name=\"price\" value=\"" + house.getPrice() + "\"><br><br>\n" +
                 "        简 介： <textarea name=\"describe\" rows=\"4\" cols=\"22\">" + house.getDescribe() + "</textarea> <br><br>\n" +
+                //"        图 片： <input type=\"file\" name=\"picture\" value=\"" + house.getPicture() + "\"><br><br>\n" +
                 "        <input type=\"submit\" value=\" 提 交 信 息\">\n" +
                 "      </form>\n" +
                 "    </div>\n" +
