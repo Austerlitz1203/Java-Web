@@ -20,7 +20,7 @@ public class AuthFilter extends HttpFilter {
 
         String uri = request.getRequestURI();
         System.out.println(uri);
-        if ( uri.endsWith("login.html") || uri.endsWith("index.html") || uri.endsWith("verifyCode") ||
+        if ( uri.endsWith("login.html") || uri.endsWith("/api/houses") ||uri.endsWith("index.html") || uri.endsWith("verifyCode") ||
                 uri.endsWith("png") || uri.endsWith("jpg") || uri.endsWith("css") || uri.endsWith("login")) {
             chain.doFilter(request, response);
             return;
