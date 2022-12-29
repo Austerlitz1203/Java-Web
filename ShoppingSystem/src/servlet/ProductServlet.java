@@ -49,11 +49,7 @@ public class ProductServlet extends HttpServlet
 
                 String picName=type+n+".png";   
                 String path= req.getServletContext().getRealPath(".") + File.separator + UPLOAD_DIRECTORY+File.separator+picName;
-                // 如果目录不存在则创建
-                File uploadDir = new File(path);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
-                }
+
                 try{
                  boolean action= new  DatabaseManager(ConnectionProvider.con).saveProductData(pname, price, discount, type,picName, discription,brand);
                 FileOutputStream fos=new FileOutputStream(path);

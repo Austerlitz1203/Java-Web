@@ -27,15 +27,6 @@ public class LoginServlet extends HttpServlet {
             String code = req.getParameter("vcode");
             String verifyCode = (String) req.getSession(true).getAttribute(ValidateCodeServlet.LOGIN_VERIFY_CODE);
 
-//            if(code == null || !code.equalsIgnoreCase(verifyCode))
-//            {
-//                System.out.println("验证码错误");
-//                s.setAttribute("msg","Validate Code went wrong... tyr with another ");
-//                s.setAttribute("msgType","error");
-//                s.setAttribute("msgTitle","Login Failed");
-//
-//            }
-
             if(ConnectionProvider.con==null)
             {
                 System.out.println("Connection newly created....");

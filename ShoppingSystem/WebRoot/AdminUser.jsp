@@ -1,8 +1,3 @@
-<%-- 
-    Document   : AdminUser
-    Created on : Aug 15, 2020, 2:13:15 PM
-    Author     : Admin
---%>
 
 <%@page import="GeterAndSeter.CategoryDetailes"%>
 <%@page import="java.sql.*"%>

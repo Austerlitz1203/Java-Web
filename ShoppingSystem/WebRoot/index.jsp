@@ -279,4 +279,53 @@
   </div><!--main row end-->
 </div><!--container fluid end    the main container-->
 </body>
+
+    <script>
+
+        $(document).ready(function(){   // callback function
+            $.getJSON("./api/products", function(products){
+                refreshProductList(products);
+            });
+        });
+
+        function addToCart(event) {
+            var btn = $(event.target);
+            var bookId = btn.attr("productId");
+            console.log(productId);
+            $.getJSON("./api/addToCart?productId=" + productId, function(message){
+                console.log(message);
+            });
+        }
+
+        function refreshProductList(products) {
+            for (var i=0; i<products.length; i++) {
+                var book = products[i];
+                console.log(product);
+                $("#product-group").append(`
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="./upload/${product.picture}" class="img-fluid" />
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text">${product.describe}</p>
+                <p class="card-text">作者：${product.author}, &nbsp;&nbsp;&nbsp;&nbsp;价格：<font color="red">${book.price}</font></p>
+                <button type="button" class="btn btn-primary" bookId="${product.id}" onclick="addToCart(event)">
+                  <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;加入购物车
+                </button>
+              </div>
+            </div>
+          </div>
+        `);
+            }
+        }
+
+    </script>
+
+
+
 </html>

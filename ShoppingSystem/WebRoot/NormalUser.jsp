@@ -1,11 +1,13 @@
 
 
 <%@page import="java.sql.*"%>
-<%-- 
-    Document   : NormalUser
-    Created on : Aug 15, 2020, 2:13:46 PM
-    Author     : Admin
---%>
+
+<%@page import="GeterAndSeter.CategoryDetailes"%>
+<%@page import="java.sql.*"%>
+<%@page import="database.DatabaseManager"%>
+<%@page import="database.ConnectionProvider"%>
+<%@page import="GeterAndSeter.Information"%>
+<%@page errorPage="ErrorPage.jsp"  %>
 
 <%@page import="GeterAndSeter.Information"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

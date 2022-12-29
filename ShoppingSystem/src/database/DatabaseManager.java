@@ -278,7 +278,7 @@ public class DatabaseManager
     public boolean saveOrder(int id,String date,int uid,String contact,String addr,String pay,int charge){
         boolean a=false;
         try{
-            String Query="insert into orders values("+id+",'"+date+"','processing',"+uid+",'"+addr+"','"+contact+"','"+pay+"',"+charge+")";
+            String Query="insert into orders(oid,date,uid,addr,contact,pay,charg) values("+id+",'"+date+"','processing',"+uid+",'"+addr+"','"+contact+"','"+pay+"',"+charge+")";
             Statement st=con.createStatement();
             st.executeUpdate(Query);
                     a=true;
